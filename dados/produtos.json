@@ -33,5 +33,12 @@
         "categoria": "Alimentos",
         "preco": "4.75",
         "quantidade": "25"
+    },
+    {
+        "codigo": "006",
+        "nome": "leite 1l",
+        "categoria": "Laticínios",
+        "preco": "7.00",
+        "quantidade": "10"
     }
 ]

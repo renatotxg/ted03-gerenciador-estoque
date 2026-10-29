@@ -1,41 +1,70 @@
+
 from pathlib import Path
 from arquivos import ler_csv
+from estoque import cadastrar_produto, atualizar_produto
 from conversor import csv_para_json, json_para_csv
-from backup import criar_backup
+
+def listar_produtos(caminho):
+    produtos = ler_csv(caminho)
+
+    if produtos is None:
+        return
+
+    print("\n === Estoque de produtos === ")
+
+    if not produtos:
+        print("Nenhum produto cadastrado.")
+        return
+
+    for produto in produtos:
+        print(
+            f"{produto['codigo']} | "
+            f"{produto['nome']} | "
+            f"R$ {produto['preco']} | "
+            f"Estoque: {produto['quantidade']}"
+        )
+
 
 def main():
     pasta = Path(__file__).resolve().parent
-    caminho = pasta / "dados" / "produtos.csv"
 
-    produtos = ler_csv(caminho)
+    caminho_csv = pasta / "dados" / "produtos.csv"
+    caminho_json = pasta / "dados" / "produtos.json"
+    caminho_convertido = pasta / "dados" / "produtos_convertidos.csv"
 
-    if produtos is not None:
-        print("\n=== Estoque De Produtos ===")
+    while True:
+        print("\n === Gerenciador de estoque === ")
+        print("1 - Listar produtos")
+        print("2 - Cadastrar produto")
+        print("3 - Atualizar produto")
+        print("4 - Converter CSV para JSON")
+        print("5 - Converter JSON para CSV")
+        print("0 - Sair")
 
-        for produto in produtos:
-          print(
-                f"{produto['codigo']} | "
-                f"{produto['nome']} | "
-                f"R$ {produto['preco']} | "
-                f"Estoque: {produto['quantidade']}"
-            )
-          caminho_json = pasta / "dados" / "produtos.json"
-    csv_para_json(caminho, caminho_json)
+        opcao = input("\nEscolha uma opção: ").strip()
 
-    caminho_csv_novo = pasta / "dados" / "produtos_convertidos.csv"
-    json_para_csv(caminho_json, caminho_csv_novo)
+        if opcao == "1":
+            listar_produtos(caminho_csv)
 
-    
-    original = ler_csv(caminho)
-    convertido = ler_csv(caminho_csv_novo)
+        elif opcao == "2":
+            cadastrar_produto(caminho_csv)
 
-    if original is not None and convertido is not None:
-        if original == convertido:
-            print("Teste de integridade: Ok! Nenhum dado foi perdido.")
+        elif opcao == "3":
+            atualizar_produto(caminho_csv)
+
+        elif opcao == "4":
+            csv_para_json(caminho_csv, caminho_json)
+
+        elif opcao == "5":
+            json_para_csv(caminho_json, caminho_convertido)
+
+        elif opcao == "0":
+            print("Programa encerrado.")
+            break
+
         else:
-            print("Erro: os arquivos possuem dados diferentes.")
-    print("\n===== TESTE DE BACKUP =====")
-    criar_backup(caminho)
-    
+            print("Opção inválida. Tente novamente.")
+
+
 if __name__ == "__main__":
     main()

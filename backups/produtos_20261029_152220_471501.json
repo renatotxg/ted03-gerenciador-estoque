@@ -1,0 +1,44 @@
+[
+    {
+        "codigo": "001",
+        "nome": "Arroz 5kg",
+        "categoria": "Alimentos",
+        "preco": "24.90",
+        "quantidade": "15"
+    },
+    {
+        "codigo": "002",
+        "nome": "Feijão 1kg",
+        "categoria": "Alimentos",
+        "preco": "8.50",
+        "quantidade": "20"
+    },
+    {
+        "codigo": "003",
+        "nome": "Café 500g",
+        "categoria": "Bebidas",
+        "preco": "18.90",
+        "quantidade": "12"
+    },
+    {
+        "codigo": "004",
+        "nome": "Detergente 500ml",
+        "categoria": "Limpeza",
+        "preco": "2.99",
+        "quantidade": "30"
+    },
+    {
+        "codigo": "005",
+        "nome": "Açúcar 1kg",
+        "categoria": "Alimentos",
+        "preco": "4.75",
+        "quantidade": "25"
+    },
+    {
+        "codigo": "006",
+        "nome": "leite 1l",
+        "categoria": "Laticínios",
+        "preco": "7.50",
+        "quantidade": "17"
+    }
+]

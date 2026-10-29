@@ -2,7 +2,7 @@ import csv
 import json
 from pathlib import Path
 from arquivos import ler_csv
-
+from backup import criar_backup
 
 def csv_para_json(caminho_csv, caminho_json):
     produtos = ler_csv(caminho_csv)
@@ -15,8 +15,9 @@ def csv_para_json(caminho_csv, caminho_json):
         destino = Path(caminho_json)
 
         if destino.exists():
-            print("O arquivo JSON já existe. Conversão cancelada.")
-            return
+            if not criar_backup(destino):
+                print("Conversão cancelada: falha no backup.")
+                return
 
         with open(destino, "w", encoding="utf-8") as arquivo:
             json.dump(produtos, arquivo, indent=4, ensure_ascii=False)
@@ -52,8 +53,9 @@ def json_para_csv(caminho_json, caminho_csv):
         destino = Path(caminho_csv)
 
         if destino.exists():
-            print("O arquivo CSV já existe. Conversão cancelada.")
-            return
+            if not criar_backup(destino):
+                print("Conversão cancelada: falha no backup.")
+                return
 
         with open(destino, "w", encoding="utf-8", newline="") as arquivo:
             escritor = csv.DictWriter(arquivo, fieldnames=campos)
