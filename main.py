@@ -1,6 +1,7 @@
 from pathlib import Path
 from arquivos import ler_csv
 from conversor import csv_para_json, json_para_csv
+from backup import criar_backup
 
 def main():
     pasta = Path(__file__).resolve().parent
@@ -33,6 +34,8 @@ def main():
             print("Teste de integridade: Ok! Nenhum dado foi perdido.")
         else:
             print("Erro: os arquivos possuem dados diferentes.")
-
+    print("\n===== TESTE DE BACKUP =====")
+    criar_backup(caminho)
+    
 if __name__ == "__main__":
     main()
